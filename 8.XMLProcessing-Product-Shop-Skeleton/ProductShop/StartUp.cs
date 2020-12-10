@@ -44,6 +44,7 @@ namespace ProductShop
         {
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
+
             Console.WriteLine("Succesfully created Database!");
         }
 
