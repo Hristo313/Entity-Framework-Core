@@ -26,7 +26,7 @@ namespace RealEstates.Data
         {
             if(!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=.;Database=RealEstate;Integrated Security=True;");
+                optionsBuilder.UseSqlServer(Configuration.ConnectionString);
             }
 
             base.OnConfiguring(optionsBuilder);
