@@ -33,7 +33,7 @@ namespace RealEstates.ConsoleApplication
             var districts = districtsService.GetTopDistrictsByAveragePrice(100);
             foreach (var district in districts)
             {
-                Console.WriteLine($"{district.Name} => Price: {district.AveragePrice:0.00} ({district.MinPrice}-{district.MaxPrice}) => {district.PropertiesCount} properties");
+                Console.WriteLine($"{district.Name} => Price: {district.AveragePrice:F2} ({district.MinPrice}-{district.MaxPrice}) => {district.PropertiesCount} properties");
             }
         }
     }
