@@ -8,6 +8,6 @@ In this repository I have practised exercises from C# Database module in SoftUni
 4) Database-first method;
 5) LINQ;
 6) Working with AutoMapper
-7) JSON processind;
+7) JSON processing;
 8) XML processing;
 9) Arhitecture practice - Real Estates
