@@ -10,4 +10,4 @@ In this repository I have practised exercises from C# Database module in SoftUni
 6) Working with AutoMapper
 7) JSON processing;
 8) XML processing;
-9) Arhitecture practice - Real Estates
+9) Arhitecture practice
