@@ -1,19 +1,19 @@
-﻿using RealEstates.Data;
-using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using RealEstates.Data;
 using RealEstates.Services;
+using System;
 using System.Text;
 
 namespace RealEstates.ConsoleApplication
 {
-    public class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
 
             var db = new RealEstateDbContext();
-            //db.Database.Migrate();
+           //db.Database.Migrate();
 
             IPropertiesService propertiesService = new PropertiesService(db);
 
@@ -29,11 +29,11 @@ namespace RealEstates.ConsoleApplication
 
             Console.WriteLine(new string('-', 60));
 
-            IDistrictService districtsService = new DistrictsService(db);
+            IDistrictsService districtsService = new DistrictsService(db);
             var districts = districtsService.GetTopDistrictsByAveragePrice(100);
             foreach (var district in districts)
             {
-                Console.WriteLine($"{district.Name} => Price: {district.AveragePrice:F2} ({district.MinPrice}-{district.MaxPrice}) => {district.PropertiesCount} properties");
+                Console.WriteLine($"{district.Name} => Price: {district.AveragePrice:0.00} ({district.MinPrice}-{district.MaxPrice}) => {district.PropertiesCount} properties");
             }
         }
     }

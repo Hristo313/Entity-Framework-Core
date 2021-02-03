@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RealEstates.Services.Models
+﻿namespace RealEstates.Services.Models
 {
     public class PropertyViewModel
     {

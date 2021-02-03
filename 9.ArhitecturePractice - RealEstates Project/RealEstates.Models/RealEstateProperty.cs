@@ -6,12 +6,10 @@ namespace RealEstates.Models
     {
         public RealEstateProperty()
         {
-            //this.Id = Guid.NewGuid().ToString();
-
             this.Tags = new HashSet<RealEstatePropertyTag>();
         }
 
-        public int Id { get; set; } // public string Id { get; set; }
+        public int Id { get; set; }
 
         public int Size { get; set; }
 

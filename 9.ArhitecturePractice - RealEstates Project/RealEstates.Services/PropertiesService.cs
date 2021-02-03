@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 
 namespace RealEstates.Services
 {
@@ -22,22 +21,17 @@ namespace RealEstates.Services
         {
             if (district == null)
             {
-                throw new ArgumentException(nameof(district));
+                throw new ArgumentNullException(nameof(district));
             }
 
-            var property = new RealEstateProperty()
+            var property = new RealEstateProperty
             {
                 Size = size,
                 Price = price,
-                Year = year,
+                Year = year < 1800 ? null : year,
                 Floor = floor,
-                TotalNumberOfFloors = maxFloors
+                TotalNumberOfFloors = maxFloors,
             };
-
-            if (property.Year < 1800)
-            {
-                property.Year = null;
-            }
 
             if (property.Floor <= 0)
             {
@@ -49,16 +43,16 @@ namespace RealEstates.Services
                 property.TotalNumberOfFloors = null;
             }
 
-            //District
+            // District
             var districtEntity = this.db.Districts.FirstOrDefault(x => x.Name.Trim() == district.Trim());
             if (districtEntity == null)
             {
-                districtEntity = new District {  Name = district };
+                districtEntity = new District { Name = district };
             }
 
             property.District = districtEntity;
 
-            //Property Type
+            // Property Type
             var propertyTypeEntity = this.db.PropertyTypes.FirstOrDefault(x => x.Name.Trim() == propertyType.Trim());
             if (propertyTypeEntity == null)
             {
@@ -67,7 +61,7 @@ namespace RealEstates.Services
 
             property.PropertyType = propertyTypeEntity;
 
-            //Building Type
+            // Building Type
             var buildingTypeEntity = this.db.BuildingTypes.FirstOrDefault(x => x.Name.Trim() == buildingType.Trim());
             if (buildingTypeEntity == null)
             {
@@ -85,10 +79,10 @@ namespace RealEstates.Services
         public IEnumerable<PropertyViewModel> Search(int minYear, int maxYear, int minSize, int maxSize)
         {
             return db.RealEstateProperties
-               .Where(x => x.Year >= minYear && x.Year <= maxYear && x.Size >= minSize && x.Size <= maxSize)
-               .Select(MapToPropertyViewModel())
-               .OrderBy(x => x.Price)
-               .ToList();
+                .Where(x => x.Year >= minYear && x.Year <= maxYear && x.Size >= minSize && x.Size <= maxSize)
+                .Select(MapToPropertyViewModel())
+                .OrderBy(x => x.Price)
+                .ToList();
         }
 
         public IEnumerable<PropertyViewModel> SearchByPrice(int minPrice, int maxPrice)
@@ -106,17 +100,17 @@ namespace RealEstates.Services
             property.Tags.Clear();
             if (property.Year.HasValue && property.Year < 1990)
             {
-                property.Tags
-                    .Add( new RealEstatePropertyTag
-                    { 
+                property.Tags.Add(
+                    new RealEstatePropertyTag
+                    {
                         Tag = this.GetOrCreateTag("OldBuilding")
                     });
             }
 
             if (property.Size > 120)
             {
-                property.Tags
-                    .Add(new RealEstatePropertyTag
+                property.Tags.Add(
+                    new RealEstatePropertyTag
                     {
                         Tag = this.GetOrCreateTag("HugeApartment")
                     });
@@ -124,8 +118,8 @@ namespace RealEstates.Services
 
             if (property.Year > 2018 && property.TotalNumberOfFloors > 5)
             {
-                property.Tags
-                    .Add(new RealEstatePropertyTag
+                property.Tags.Add(
+                    new RealEstatePropertyTag
                     {
                         Tag = this.GetOrCreateTag("HasParking")
                     });
@@ -133,27 +127,26 @@ namespace RealEstates.Services
 
             if (property.Floor == property.TotalNumberOfFloors)
             {
-                property.Tags
-                    .Add(new RealEstatePropertyTag
+                property.Tags.Add(
+                    new RealEstatePropertyTag
                     {
                         Tag = this.GetOrCreateTag("LastFloor")
                     });
             }
 
-            if ((double)(property.Price / property.Size) < 800)
+            if (((double)property.Price / property.Size) < 800)
             {
-                property.Tags
-                    .Add(new RealEstatePropertyTag
+                property.Tags.Add(
+                    new RealEstatePropertyTag
                     {
                         Tag = this.GetOrCreateTag("CheapProperty")
                     });
             }
 
-
-            if ((double)(property.Price / property.Size) > 2000)
+            if (((double)property.Price / property.Size) > 2000)
             {
-                property.Tags
-                    .Add(new RealEstatePropertyTag
+                property.Tags.Add(
+                    new RealEstatePropertyTag
                     {
                         Tag = this.GetOrCreateTag("ExpensiveProperty")
                     });
@@ -178,12 +171,14 @@ namespace RealEstates.Services
             return x => new PropertyViewModel
             {
                 Price = x.Price,
-                Floor = (x.Floor ?? 0).ToString() + "/" + (x.TotalNumberOfFloors ?? 0),
+                Floor = (x.Floor ?? 0).ToString()
+                        + "/"
+                        + (x.TotalNumberOfFloors ?? 0),
                 Size = x.Size,
                 Year = x.Year,
                 BuildingType = x.BuildingType.Name,
                 District = x.District.Name,
-                PropertyType = x.PropertyType.Name
+                PropertyType = x.PropertyType.Name,
             };
         }
     }

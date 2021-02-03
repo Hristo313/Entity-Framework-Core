@@ -1,4 +1,9 @@
-﻿namespace RealEstates.Models
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+
+namespace RealEstates.Models
 {
     public class RealEstatePropertyTag
     {
