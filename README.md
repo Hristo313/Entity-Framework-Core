@@ -10,6 +10,6 @@ In this repository I have practised exercises with Entity Framework Core:
 6) Working with AutoMapper
 7) JSON processing;
 8) XML processing;
-9) Arhitecture practice
+9) Arhitecture practice;
 
-Real Estates Web Project
+10) Real Estates Web Project
