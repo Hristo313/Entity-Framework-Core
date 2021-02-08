@@ -11,4 +11,4 @@ In this repository I have practised exercises with Entity Framework Core:
 7) JSON processing;
 8) XML processing;
 9) Arhitecture practice;
-10) Real Estates Web Project
+10) REAL ESTATES WEB PROJECT
