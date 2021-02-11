@@ -1,6 +1,6 @@
 # Entity-Framework-Core
 
-In this repository I have practised exercises with Entity Framework Core:
+In this repository I've practised working with Entity Framework Core:
 
 1) Mini ORM;
 2) Entity relations;
